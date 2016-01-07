@@ -22,7 +22,6 @@ function addCol() {
   var rows = document.getElementsByClassName('inputs');
   rows.forEach( function(element) {
     var input = document.createElement('input');
-    input.setAttribute('type', 'number');
     element.appendChild(input);
     element.innerHTML = element.innerHTML + ' ';
   });
@@ -30,11 +29,21 @@ function addCol() {
 }
 
 function reset() {
-  document.getElementById('Matrix').innerHTML = '<div class="row" id="0"> <button class="switch" tabindex="-1" onclick="switchRows(event);"> &#8597; </button> <div class="inputs"> <input type="number"> <input type="number"> </div> <button class="X" tabindex="-1" onclick="addThisRow(event);"> + </button> <button class="X" tabindex="-1" onclick="multiplyRow(event);"> X </button> </div> <div class="row" id="1"> <button class="switch" tabindex="-1" onclick="switchRows(event);"> &#8597; </button> <div class="inputs"> <input type="number"> <input type="number"> </div> <button class="X" tabindex="-1" onclick="addThisRow(event);"> + </button> <button class="X" tabindex="-1" onclick="multiplyRow(event);"> X </button> </div>';
+  document.getElementById('Matrix').innerHTML = '<div class="row" id="0"> <button class="switch" tabindex="-1" onclick="switchRows(event);"> &#8597; </button> <div class="inputs"> <input> <input> </div> <button class="X" tabindex="-1" onclick="addThisRow(event);"> + </button> <button class="X" tabindex="-1" onclick="multiplyRow(event);"> X </button> </div> <div class="row" id="1"> <button class="switch" tabindex="-1" onclick="switchRows(event);"> &#8597; </button> <div class="inputs"> <input> <input> </div> <button class="X" tabindex="-1" onclick="addThisRow(event);"> + </button> <button class="X" tabindex="-1" onclick="multiplyRow(event);"> X </button> </div>';
   ROW_COUNTER = 2;
   COL_COUNTER = 2;
   ROW_CLICKED = -1;
   clearAllButtons();
+}
+
+function showInstructions() {
+  var div = document.getElementById('instructions');
+  if (div.getAttribute('style')) {
+    div.removeAttribute('style');
+  }
+  else {
+    div.setAttribute('style', 'display: none;');
+  }
 }
 
 function switchRows(event) {
@@ -104,6 +113,7 @@ function multiply(row) {
     factor = 1;
   }
   document.getElementById(row).querySelector('.inputs').children.forEach( function(element) {
+    console.log(element.value, '*', factor);
     element.value = myMultiply(element.value, factor);
   });
   clearAllButtons();
@@ -131,18 +141,22 @@ function fractionMultiply(one, two) {
   if (String(one).indexOf('/') !== -1) {
     oneS = one.split('/');
     if (oneS.length > 2) {
+      console.warn('NaN');
       return NaN;
     }
     if (isNaN(oneS[0]) && isNaN(oneS[1])) {
+      console.warn('NaN');
       return NaN;
     }
   }
   if (String(two).indexOf('/') !== -1) {
     twoS = two.split('/');
     if (twoS.length > 2) {
+      console.warn('NaN');
       return NaN;
     }
     if (isNaN(twoS[0]) && isNaN(twoS[1])) {
+      console.warn('NaN');
       return NaN;
     }
   }
@@ -152,23 +166,27 @@ function fractionMultiply(one, two) {
   }
   else if (oneS.length === 2 && twoS.length === 1) {
     if (isNaN(two)) {
+      console.warn('NaN');
       return NaN;
     }
     return oneS[0]*two+'/'+oneS[1];
   }
   else if (twoS.length === 2 && oneS.length === 1) {
     if (isNaN(one)) {
+      console.warn('NaN');
       return NaN;
     }
     return twoS[0]*one+'/'+twoS[1];
   }
   else if (twoS.length === 1 && oneS.length === 1) {
     if (isNaN(one) || isNaN(two)) {
+      console.warn('NaN');
       return NaN;
     }
     return one*two;
   }
   else {
+    console.warn('NaN');
     return NaN;
   }
 }
@@ -188,6 +206,7 @@ function reduce(input) {
   
   var split = input.split('/');
   if (isNaN(Number(split[0])) || isNaN(Number(split[1]))) {
+    console.warn('NaN');
     return NaN;
   }
   var result = otherReduce(Number(split[0]), Number(split[1]));
@@ -197,6 +216,89 @@ function reduce(input) {
   else {
     return result[0]+'/'+result[1];
   }
+}
+
+function myAdd(one, two) {
+  return reduce(fractionAdd(one, two));
+}
+
+function fractionAdd(one, two) {
+  if (String(one).indexOf('/') === -1 && String(two).indexOf('/') === -1) {
+    return Number(one) + Number(two);
+  }
+  
+  var oneS = [one];
+  var twoS = [two];
+  
+  if (String(one).indexOf('/') !== -1) {
+    oneS = one.split('/');
+    if (oneS.length > 2) {
+      console.warn('NaN');
+      return NaN;
+    }
+    if (isNaN(oneS[0]) && isNaN(oneS[1])) {
+      console.warn('NaN');
+      return NaN;
+    }
+  }
+  if (String(two).indexOf('/') !== -1) {
+    twoS = two.split('/');
+    if (twoS.length > 2) {
+      console.warn('NaN');
+      return NaN;
+    }
+    if (isNaN(twoS[0]) && isNaN(twoS[1])) {
+      console.warn('NaN');
+      return NaN;
+    }
+  }
+  
+  if (twoS.length === 2 && oneS.length === 2) {
+    return addTwoFractions(oneS, twoS);
+  }
+  else if (oneS.length === 2 && twoS.length === 1) {
+    if (isNaN(two)) {
+      console.warn('NaN');
+      return NaN;
+    }
+    return (Number(oneS[0])+Number(two*oneS[1]))+'/'+oneS[1];
+  }
+  else if (twoS.length === 2 && oneS.length === 1) {
+    if (isNaN(one)) {
+      console.warn('NaN');
+      return NaN;
+    }
+    return (Number(twoS[0])+Number(one*twoS[1]))+'/'+twoS[1];
+  }
+  else if (twoS.length === 1 && oneS.length === 1) {
+    if (isNaN(one) || isNaN(two)) {
+      console.warn('NaN');
+      return NaN;
+    }
+    return one+two;
+  }
+  else {
+    console.warn('NaN');
+    return NaN;
+  }
+  
+}
+
+// return a string
+function addTwoFractions(one, two) {
+  function hcf(a, b) {
+    if (b === 0) {
+        return a;
+    }
+    return hcf(b, a%b);
+}
+  function lcm(a,b) {
+    return a*b/(hcf(a,b));
+}
+  var d = lcm(one[1], two[1]);
+  var n = one[0]*(d/one[1])+two[0]*(d/two[1]);
+  
+  return n+'/'+d;
 }
 
 function addThisRow(event) {
@@ -227,7 +329,7 @@ function addThisRow(event) {
     });
     console.dir(temp);
     final.forEach( function(element, i) {
-      element.value = Number(element.value)+temp[i];
+      element.value = myAdd(element.value, temp[i]);
     });
     
     document.getElementById('go').removeAttribute('style');

@@ -117,14 +117,41 @@
     .small {
       font-size: .5em;
     }
+    .instructions {
+      display: inline-block;
+      font-size: .4em;
+      color: gray;
+      max-width: 500px;
+    }
+    .instructions li {
+      list-style: disc;
+    }
   </style>
 </head>
 <body>
   <div class="view" id="mainView">
     <p class="small">
       My friend Jordan wanted this to exist.  So I made it.<br>
-      All this does is perform row operations.  It doesn't actually solve anything.
+      All this does is perform row operations.  It doesn't actually solve anything.<br>
+      This even works with fractions!  I haven't done much testing, but it should work.
     </p>
+    <div class="instructions" id="instructions" style="display: none;">
+      <br>
+      Instructions: 
+      <ul>
+        <li>
+          To switch rows, first click the arrow on the left to select a row, then the arrow to the left of the row you want to switch it with.
+        </li>
+        <li>
+          To multiply a row by a scalar, click the X to the right of the row, enter the scalar and click GO.
+        </li>
+        <li>
+          To add a scalar multiple of a row to another, first select a row by clicing the plus sign to the right of it, then enter the scalar, and then select the row to add it to by clicking the plus sign next to it.
+        </li>
+      </ul>
+    <br>
+    </div>
+  <br>
     <div style="display: none;">
       <label for="aug">
         Augmented
@@ -139,6 +166,9 @@
     </button>
     <button onclick="reset();" class="control" id="reset">
       Reset
+    </button>
+    <button onclick="showInstructions();" class="control" id="howto">
+      How to
     </button><br>
     <p id="multipleOfRowAdd" style="display: none;" class="small">
       Multiple of row clicked:
