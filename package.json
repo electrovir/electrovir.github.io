@@ -1,0 +1,7 @@
+{
+  "name": "electrovir.github.io",
+  "version": "1.0.0",
+  "dependencies": {
+    "Matrix_Operator": "git+ssh://git@github.com/electrovir/Matrix_Operator.git"
+  }
+}
