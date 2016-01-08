@@ -2,6 +2,7 @@
   "name": "electrovir.github.io",
   "version": "1.0.0",
   "dependencies": {
-    "Matrix_Operator": "git+ssh://git@github.com/electrovir/Matrix_Operator.git"
+    "Matrix_Operator": "git+ssh://git@github.com/electrovir/Matrix_Operator.git",
+    "Financial_Vir": "git+ssh://git@github.com/electrovir/Financial_Vir.git"
   }
 }
