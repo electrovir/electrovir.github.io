@@ -4,15 +4,6 @@ function addRow() {
   row.setAttribute('class', 'row');
   row.setAttribute('id', ROW_COUNTER+1);
   row.innerHTML = document.getElementById('0').innerHTML;
-  // if (COL_COUNTER > 2) {
-  //   for (var i = 2; i < COL_COUNTER; i++) {
-  //     var col = document.createElement('input');
-  //     col.setAttribute('type', 'number');
-  //     var inputs = row.querySelector('.inputs');
-  //     inputs.innerHTML = inputs.innerHTML + ' ';
-  //     row.querySelector('.inputs').appendChild(col);
-  //   }
-  // }
   document.getElementById('Matrix').appendChild(row);
   ROW_COUNTER++;
 }
@@ -23,13 +14,12 @@ function addCol() {
   rows.forEach( function(element) {
     var input = document.createElement('input');
     element.appendChild(input);
-    element.innerHTML = element.innerHTML + ' ';
   });
   COL_COUNTER++;
 }
 
 function reset() {
-  document.getElementById('Matrix').innerHTML = '<div class="row" id="0"> <button class="switch" tabindex="-1" onclick="switchRows(event);"> &#8597; </button> <div class="inputs"> <input> <input> </div> <button class="X" tabindex="-1" onclick="addThisRow(event);"> + </button> <button class="X" tabindex="-1" onclick="multiplyRow(event);"> X </button> </div> <div class="row" id="1"> <button class="switch" tabindex="-1" onclick="switchRows(event);"> &#8597; </button> <div class="inputs"> <input> <input> </div> <button class="X" tabindex="-1" onclick="addThisRow(event);"> + </button> <button class="X" tabindex="-1" onclick="multiplyRow(event);"> X </button> </div>';
+  document.getElementById('Matrix').innerHTML = '<div class="row" id="0"> <button class="switch" tabindex="-1" onclick="switchRows(event);"> &#8597; </button> <div class="inputs"><input><input></div> <button class="X" tabindex="-1" onclick="addThisRow(event);"> + </button> <button class="X" tabindex="-1" onclick="multiplyRow(event);"> X </button> </div> <div class="row" id="1"> <button class="switch" tabindex="-1" onclick="switchRows(event);"> &#8597; </button> <div class="inputs"><input><input></div> <button class="X" tabindex="-1" onclick="addThisRow(event);"> + </button> <button class="X" tabindex="-1" onclick="multiplyRow(event);"> X </button> </div>';
   ROW_COUNTER = 2;
   COL_COUNTER = 2;
   ROW_CLICKED = -1;

@@ -18,12 +18,12 @@
 </head>
 <body>
   <div class="view" id="mainView">
-    <p class="small">
-      My friend Jordan wanted this to exist.  So I made it.<br>
-      All this does is perform row operations.  It doesn't actually solve anything.<br>
-      This even works with fractions!  I haven't done much testing, but it should work.
-    </p>
     <div class="instructions" id="instructions" style="display: none;">
+      <p>
+        My friend Jordan wanted this to exist.  So I made it.<br>
+        All this does is perform row operations.  It doesn't actually solve anything.<br>
+        This even works with fractions!  I haven't done much testing, but it should work.
+      </p>
       <br>
       Instructions: 
       <ul>
@@ -37,9 +37,9 @@
           To add a scalar multiple of a row to another, first select a row by clicing the plus sign to the right of it, then enter the scalar, and then select the row to add it to by clicking the plus sign next to it.
         </li>
       </ul>
-    <br>
+      <br>
     </div>
-  <br>
+    <br>
     <div style="display: none;">
       <label for="aug">
         Augmented
@@ -56,7 +56,7 @@
       Reset
     </button>
     <button onclick="showInstructions();" class="control" id="howto">
-      How to
+      About
     </button><br>
     <p id="multipleOfRowAdd" style="display: none;" class="small">
       Multiple of row clicked:
@@ -79,9 +79,7 @@
           &#8597;
         </button>
         <div class="inputs">
-          <input>
-          <input>
-        </div>
+          <input><input></div>
         <button class="X" tabindex="-1" onclick="addThisRow(event);">
           +
         </button>
@@ -95,9 +93,7 @@
           &#8597;
         </button>
         <div class="inputs">
-          <input>
-          <input>
-        </div>
+          <input><input></div>
         <button class="X" tabindex="-1" onclick="addThisRow(event);">
           +
         </button>
